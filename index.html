@@ -13,21 +13,26 @@
         <h2>or not to do</h2>
     </header>
     <div class="sidebar">
-        dis sidebar
+        <div>
+            <ul>
+                <li>Default Project</li>
+            
+            </ul>
+            <button>Add New Project</button>
+        </div>
     </div>
     <div class="todo-content">
-        <form id="newTaskForm">
-            <label for="taskTitle">Title:</label>
-            <input type="text" name="taskTitle" id="taskTitle">
+        <form action='' id="newTaskForm">
+            <label for="newTaskForm-taskTitle">Title:</label>
+            <input type="text" name="newTaskForm-taskTitle" id="newTaskForm-taskTitle" required>
 
-            <label for="taskDetail">Details:</label>
-            <textarea name="taskDetail" id="taskDetail" cols="30" rows="10"></textarea>
+            <label for="newTaskForm-taskDetail">Details:</label>
+            <textarea name="newTaskForm-taskDetail" id="newTaskForm-taskDetail" cols="30" rows="10"></textarea>
 
-            <label for="taskDueDate">Do by:</label>
-            <input type="date" name="taskDueDate" id="taskDueDate">
+            <label for="newTaskForm-taskDueDate">Do by:</label>
+            <input type="date" name="newTaskForm-taskDueDate" id="newTaskForm-taskDueDate" required>
 
-            <button class="addTaskBtn formBtn">Add</button>
-            <button class="cancelTakBtn formBtn">Nevermind</button>
+            <button type='submit' class="newTaskForm-addTaskBtn formBtn">Add</button>
         </form>
         <button class="addTask">Add Task</button>
     </div>
