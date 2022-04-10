@@ -6,6 +6,8 @@ function addTodoDiv(todoObject){
     const todoTitle=document.createElement('h1');
     const todoDetail=document.createElement('p');
     const todoDueDate=document.createElement('p');
+
+    todoContainer.setAttribute('class','todoContainer');
     
     todoTitle.innerText=todoObject.todoTitle;
     todoDetail.innerText=todoObject.todoDetails;
@@ -22,4 +24,11 @@ function showTaskForm(){
     addTaskButton.style.display='none'; //hides add button
 }   
 
-export {addTodoDiv,showTaskForm};
+//hide form
+function hideTaskForm(){
+    const taskInputForm=todoContent.querySelector('#newTaskForm');
+    taskInputForm.style.display = 'none';
+    addTaskButton.style.display='inline-block'; //hides add button
+}
+
+export {addTodoDiv,showTaskForm,hideTaskForm};

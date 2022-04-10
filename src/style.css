@@ -73,6 +73,10 @@ body{
     
 }
 
+.todoContainer{
+    border:2px solid black;
+}
+
 #newTaskForm{
     display: none;
     flex-direction: column;
