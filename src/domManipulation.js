@@ -1,4 +1,5 @@
 const todoContent=document.querySelector('.todo-content');
+const addTaskButton=todoContent.querySelector('.addTask');
 
 function addTodoDiv(todoObject){
     const todoContainer=document.createElement('div');
@@ -8,10 +9,17 @@ function addTodoDiv(todoObject){
     
     todoTitle.innerText=todoObject.todoTitle;
     todoDetail.innerText=todoObject.todoDetails;
-    todoDueDate.innerText=document.todoDueDate;
+    todoDueDate.innerText=todoObject.todoDueDate;
 
     todoContainer.append(todoTitle,todoDetail,todoDueDate);
     todoContent.append(todoContainer);
 }
 
-export {addTodoDiv};
+//Show form
+function showTaskForm(){
+    const taskInputForm=todoContent.querySelector('#newTaskForm');
+    taskInputForm.style.display = 'flex';
+    addTaskButton.style.display='none'; //hides add button
+}   
+
+export {addTodoDiv,showTaskForm};

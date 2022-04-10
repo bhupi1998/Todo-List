@@ -16,7 +16,20 @@
         dis sidebar
     </div>
     <div class="todo-content">
-        
+        <form id="newTaskForm">
+            <label for="taskTitle">Title:</label>
+            <input type="text" name="taskTitle" id="taskTitle">
+
+            <label for="taskDetail">Details:</label>
+            <textarea name="taskDetail" id="taskDetail" cols="30" rows="10"></textarea>
+
+            <label for="taskDueDate">Do by:</label>
+            <input type="date" name="taskDueDate" id="taskDueDate">
+
+            <button class="addTaskBtn formBtn">Add</button>
+            <button class="cancelTakBtn formBtn">Nevermind</button>
+        </form>
+        <button class="addTask">Add Task</button>
     </div>
     <div class="footer">
         <p>Copyright © 2022 bhupi1998
