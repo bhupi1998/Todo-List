@@ -84,3 +84,7 @@ body{
     align-self: center;
     justify-content: center;
 }
+
+.newProjectInputMenu{
+    display: none;
+}
