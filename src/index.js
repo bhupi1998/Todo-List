@@ -1,6 +1,6 @@
 import './style.css';
 import {todoConstructor,setWorkingProject} from './todoFunctions.js';
-import {addTodoDiv,showTaskForm,hideTaskForm,showNewProjectMenu,hideNewProjectMenu,addNewProjectDOM} from './domManipulation.js';
+import {addTodoDiv,showTaskForm,hideTaskForm,showNewProjectMenu,hideNewProjectMenu,addNewProjectDOM,projectDOMRefresh} from './domManipulation.js';
 import {addTask} from './handleUserInputData.js'
 
 const todoContent=document.querySelector('.todo-content');
@@ -66,6 +66,7 @@ addProjectBtn.onclick=()=>{
     workingProject=setWorkingProject(newProject);//sets current active project
     newProject.addEventListener('click',()=>{
         workingProject=setWorkingProject(newProject);//sets current working project
+        projectDOMRefresh(todoArray,workingProject);
     });
 }
 /*

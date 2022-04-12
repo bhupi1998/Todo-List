@@ -60,4 +60,20 @@ function addNewProjectDOM(projectName){
     return projectName.replace(' ','-'); //returns the id
 }
 
-export {addTodoDiv,showTaskForm,hideTaskForm,showNewProjectMenu,hideNewProjectMenu,addNewProjectDOM};
+//updates DOM based on project
+function projectDOMRefresh(projectArray,currentWorkingArray){
+    removeElementsByClass('todoContainer');
+    projectArray.forEach(function(todoObject){
+        if(todoObject.project == currentWorkingArray)
+            addTodoDiv(todoObject)
+    })
+}
+//From: https://stackoverflow.com/questions/4777077/removing-elements-by-class-name
+function removeElementsByClass(className){
+    const elements = document.getElementsByClassName(className);
+    while(elements.length > 0){
+        elements[0].parentNode.removeChild(elements[0]);
+    }
+}
+
+export {addTodoDiv,showTaskForm,hideTaskForm,showNewProjectMenu,hideNewProjectMenu,addNewProjectDOM,projectDOMRefresh};
