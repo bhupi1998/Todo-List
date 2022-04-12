@@ -31,6 +31,18 @@ let todoArray = []; //contains all arrays.
 let todoProject=[]; //contains all project arrays.
 let workingProject='Default';//default project. Changing projects will change this global variables.
 
+function initialSetUp(){
+    const newProject=sidebarProjectContainer.querySelector(`#defaultProject`);
+    workingProject=setWorkingProject(newProject);//sets current active project
+    newProject.addEventListener('click',()=>{
+        workingProject=setWorkingProject(newProject);//sets current working project
+        projectDOMRefresh(todoArray,workingProject);
+        console.log(workingProject);
+    });
+}
+
+initialSetUp();
+
 addTaskButton.onclick=() => {
     showTaskForm();
 };
@@ -61,14 +73,15 @@ addProjectBtn.onclick=()=>{
     hideNewProjectMenu();
     let projectId=addNewProjectDOM(newProjectInputField.value);
     newProjectInputField.value='';
-
     const newProject=sidebarProjectContainer.querySelector(`#${projectId}`);
     workingProject=setWorkingProject(newProject);//sets current active project
     newProject.addEventListener('click',()=>{
         workingProject=setWorkingProject(newProject);//sets current working project
         projectDOMRefresh(todoArray,workingProject);
+        console.log(workingProject);
     });
 }
+
 /*
 Adding new project
     user clicks on add new project button
