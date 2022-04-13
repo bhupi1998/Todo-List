@@ -23,6 +23,7 @@ const sidebarProjectContainer=document.querySelector('.sidebar-projectContainer'
 const addNewProjectBtn=sidebarProjectContainer.querySelector('#addNewProjectBtn');
 const addProjectBtn=sidebarProjectContainer.querySelector('#projectTitleInput-addBtn');
 const cancelProjectBtn=sidebarProjectContainer.querySelector('#projectTitleInput-cancelBtn');
+const projectList=sidebarProjectContainer.querySelector('.projectList');
 
 const newProjectInputMenu=sidebarProjectContainer.querySelector('.newProjectInputMenu');
 const newProjectInputField=newProjectInputMenu.querySelector('#projectTitleInput');
@@ -36,7 +37,7 @@ function initialSetUp(){
     workingProject=setWorkingProject(newProject);//sets current active project
     newProject.addEventListener('click',()=>{
         workingProject=setWorkingProject(newProject);//sets current working project
-        projectDOMRefresh(todoArray,workingProject);
+        projectDOMRefresh(todoArray,workingProject,todoContent);
         console.log(workingProject);
     });
 }
@@ -44,15 +45,15 @@ function initialSetUp(){
 initialSetUp();
 
 addTaskButton.onclick=() => {
-    showTaskForm();
+    showTaskForm(todoContent,addTaskButton);
 };
 /*New task form event listeners*****************************/
 
 newTaskForm.onsubmit=(e)=>{
     e.preventDefault(); ///prevents refresh of page
-    hideTaskForm();//hides form
+    hideTaskForm(todoContent,addTaskButton);//hides form
     const task = todoConstructor(newTaskTitle.value,newTaskDetail.value,newTaskDate.value,workingProject);
-    addTodoDiv(task); //adds a div in the DOM
+    addTodoDiv(todoContent,task); //adds a div in the DOM
     todoArray.push(task);
     newTaskForm.reset(); //resets form
     console.log(task);
@@ -63,21 +64,21 @@ newTaskForm.onsubmit=(e)=>{
 //event lister for sidebar project container
 //shows new project menu
 addNewProjectBtn.onclick=()=>{
-    showNewProjectMenu();
+    showNewProjectMenu(addNewProjectBtn,newProjectInputMenu);
 }
 
 cancelProjectBtn.onclick=()=>{
-    hideNewProjectMenu();
+    hideNewProjectMenu(addNewProjectBtn,newProjectInputMenu);
 }
 addProjectBtn.onclick=()=>{
-    hideNewProjectMenu();
-    let projectId=addNewProjectDOM(newProjectInputField.value);
+    hideNewProjectMenu(addNewProjectBtn,newProjectInputMenu);
+    let projectId=addNewProjectDOM(newProjectInputField.value,projectList);
     newProjectInputField.value='';
     const newProject=sidebarProjectContainer.querySelector(`#${projectId}`);
     workingProject=setWorkingProject(newProject);//sets current active project
     newProject.addEventListener('click',()=>{
         workingProject=setWorkingProject(newProject);//sets current working project
-        projectDOMRefresh(todoArray,workingProject);
+        projectDOMRefresh(todoArray,workingProject,todoContent);
         console.log(workingProject);
     });
 }

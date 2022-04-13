@@ -1,57 +1,46 @@
-const todoContent=document.querySelector('.todo-content');
-const addTaskButton=todoContent.querySelector('.addTask');
-
-/*Project menu************************************/
-const sidebarProjectContainer=document.querySelector('.sidebar-projectContainer');
-const addNewProjectBtn=sidebarProjectContainer.querySelector('#addNewProjectBtn');
-const newProjectInputMenu=sidebarProjectContainer.querySelector('.newProjectInputMenu');
-const projectList=sidebarProjectContainer.querySelector('.projectList');
-/*************************************************/
-
-function addTodoDiv(todoObject){
+function addTodoDiv(parentDiv,todoObject){
     const todoContainer=document.createElement('div');
     const todoTitle=document.createElement('h1');
     const todoDetail=document.createElement('p');
     const todoDueDate=document.createElement('p');
 
     todoContainer.setAttribute('class','todoContainer');
-    
     todoTitle.innerText=todoObject.todoTitle;
     todoDetail.innerText=todoObject.todoDetails;
     todoDueDate.innerText=todoObject.todoDueDate;
 
     todoContainer.append(todoTitle,todoDetail,todoDueDate);
-    todoContent.append(todoContainer);
+    parentDiv.append(todoContainer);
 }
 
 //Show form
-function showTaskForm(){
-    const taskInputForm=todoContent.querySelector('#newTaskForm');
+function showTaskForm(parentDiv,addTaskButton){
+    const taskInputForm=parentDiv.querySelector('#newTaskForm');
     taskInputForm.style.display = 'flex';
     addTaskButton.style.display='none'; //hides add button
 }   
 
 //hide form
-function hideTaskForm(){
-    const taskInputForm=todoContent.querySelector('#newTaskForm');
+function hideTaskForm(parentDiv,addTaskButton){
+    const taskInputForm=parentDiv.querySelector('#newTaskForm');
     taskInputForm.style.display = 'none';
     addTaskButton.style.display='inline-block'; //hides add button
 }
 
 //show sidebar project form/menu
-function showNewProjectMenu(){
+function showNewProjectMenu(addNewProjectBtn,newProjectInputMenu){
     addNewProjectBtn.style.display='none';
     newProjectInputMenu.style.display='block';
 }
 
 //hide sidebar project form/menu
-function hideNewProjectMenu(){
+function hideNewProjectMenu(addNewProjectBtn,newProjectInputMenu){
     addNewProjectBtn.style.display='block';
     newProjectInputMenu.style.display='none';
 }
 
 //adds new project button to sidebar
-function addNewProjectDOM(projectName){
+function addNewProjectDOM(projectName,projectList){
     const newProjectBtn=document.createElement('button');
     newProjectBtn.setAttribute('class','projectBtn');
     newProjectBtn.setAttribute('id',projectName.replace(' ','-'));
@@ -61,11 +50,11 @@ function addNewProjectDOM(projectName){
 }
 
 //updates DOM based on project
-function projectDOMRefresh(projectArray,currentWorkingArray){
+function projectDOMRefresh(projectArray,currentWorkingArray,parentDiv){
     removeElementsByClass('todoContainer');
     projectArray.forEach(function(todoObject){
         if(todoObject.project == currentWorkingArray)
-            addTodoDiv(todoObject)
+            addTodoDiv(parentDiv,todoObject)
     })
 }
 //From: https://stackoverflow.com/questions/4777077/removing-elements-by-class-name
