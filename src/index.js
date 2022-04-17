@@ -1,5 +1,5 @@
 import './style.css';
-import {todoConstructor,setWorkingProject} from './todoFunctions.js';
+import {todoConstructor,setWorkingProject,todoProjectObjects} from './todoFunctions.js';
 import {addTodoDiv,showTaskForm,hideTaskForm,showNewProjectMenu,hideNewProjectMenu,addNewProjectDOM,projectDOMRefresh} from './domManipulation.js';
 import {} from './dateSorting.js'
 
@@ -37,7 +37,7 @@ function initialSetUp(){
     workingProject=setWorkingProject(newProject);//sets current active project
     newProject.addEventListener('click',()=>{
         workingProject=setWorkingProject(newProject);//sets current working project
-        projectDOMRefresh(todoArray,workingProject,todoContent,0);
+        projectDOMRefresh(todoProjectObjects(todoArray,workingProject),'todoContainer',todoContent);
         console.log(workingProject);
     });
 }
@@ -78,7 +78,7 @@ addProjectBtn.onclick=()=>{
     workingProject=setWorkingProject(newProject);//sets current active project
     newProject.addEventListener('click',()=>{
         workingProject=setWorkingProject(newProject);//sets current working project
-        projectDOMRefresh(todoArray,workingProject,todoContent,0);
+        projectDOMRefresh(todoProjectObjects(todoArray,workingProject),'todoContainer',todoContent);
         console.log(workingProject);
     });
 }

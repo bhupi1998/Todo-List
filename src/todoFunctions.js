@@ -7,4 +7,15 @@ function todoConstructor(todoTitle,todoDetails,todoDueDate,project){
 function setWorkingProject(currentProject){
     return currentProject.id;
 }
-export {todoConstructor,setWorkingProject};
+
+//Returns an array composed of objects that match the given project
+
+function todoProjectObjects(todoArray,currentWorkingProject){
+    let filteredArray=[];
+    todoArray.forEach(element => {
+        if(element.project == currentWorkingProject)
+            filteredArray.push(element);
+    });
+    return filteredArray;
+}
+export {todoConstructor,setWorkingProject,todoProjectObjects};
