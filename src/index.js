@@ -1,7 +1,7 @@
 import './style.css';
 import {todoConstructor,setWorkingProject} from './todoFunctions.js';
 import {addTodoDiv,showTaskForm,hideTaskForm,showNewProjectMenu,hideNewProjectMenu,addNewProjectDOM,projectDOMRefresh} from './domManipulation.js';
-import {addTask} from './handleUserInputData.js'
+import {} from './dateSorting.js'
 
 const todoContent=document.querySelector('.todo-content');
 
@@ -37,7 +37,7 @@ function initialSetUp(){
     workingProject=setWorkingProject(newProject);//sets current active project
     newProject.addEventListener('click',()=>{
         workingProject=setWorkingProject(newProject);//sets current working project
-        projectDOMRefresh(todoArray,workingProject,todoContent);
+        projectDOMRefresh(todoArray,workingProject,todoContent,0);
         console.log(workingProject);
     });
 }
@@ -72,21 +72,13 @@ cancelProjectBtn.onclick=()=>{
 }
 addProjectBtn.onclick=()=>{
     hideNewProjectMenu(addNewProjectBtn,newProjectInputMenu);
-    let projectId=addNewProjectDOM(newProjectInputField.value,projectList);
+    let projectId=addNewProjectDOM(newProjectInputField.value,projectList,0);
     newProjectInputField.value='';
     const newProject=sidebarProjectContainer.querySelector(`#${projectId}`);
     workingProject=setWorkingProject(newProject);//sets current active project
     newProject.addEventListener('click',()=>{
         workingProject=setWorkingProject(newProject);//sets current working project
-        projectDOMRefresh(todoArray,workingProject,todoContent);
+        projectDOMRefresh(todoArray,workingProject,todoContent,0);
         console.log(workingProject);
     });
 }
-
-/*
-Adding new project
-    user clicks on add new project button
-    input shows up with add and cancel buttons
-    a new project is displayed under projects 
-
-*/

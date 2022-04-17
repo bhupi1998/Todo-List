@@ -49,12 +49,17 @@ function addNewProjectDOM(projectName,projectList){
     return projectName.replace(' ','-'); //returns the id
 }
 
+//!This shouldjust take in an array and display it. The sorting should be done elsewhere
 //updates DOM based on project
-function projectDOMRefresh(projectArray,currentWorkingArray,parentDiv){
+//mode:0 shows based on project. Mode:1 shows everything is passed array
+function projectDOMRefresh(projectArray,currentWorkingArray,parentDiv,mode){
     removeElementsByClass('todoContainer');
     projectArray.forEach(function(todoObject){
-        if(todoObject.project == currentWorkingArray)
-            addTodoDiv(parentDiv,todoObject)
+        if(todoObject.project == currentWorkingArray && !mode){ //if in mode 0 filter based on working directory
+            addTodoDiv(parentDiv,todoObject);
+        }else{ //if in mode 1 display everything in given array
+            addTodoDiv(parentDiv,todoObject); 
+        }
     })
 }
 //From: https://stackoverflow.com/questions/4777077/removing-elements-by-class-name
