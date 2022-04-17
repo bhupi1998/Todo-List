@@ -1,7 +1,9 @@
 import './style.css';
-import {todoConstructor,setWorkingProject,todoProjectObjects} from './todoFunctions.js';
+import {todoConstructor,setWorkingProject,todoProjectObjects,todoDateObjects} from './todoFunctions.js';
 import {addTodoDiv,showTaskForm,hideTaskForm,showNewProjectMenu,hideNewProjectMenu,addNewProjectDOM,projectDOMRefresh} from './domManipulation.js';
 import {} from './dateSorting.js'
+
+import {compareAsc,parse,parseISO} from 'date-fns';
 
 const todoContent=document.querySelector('.todo-content');
 
@@ -28,9 +30,15 @@ const projectList=sidebarProjectContainer.querySelector('.projectList');
 const newProjectInputMenu=sidebarProjectContainer.querySelector('.newProjectInputMenu');
 const newProjectInputField=newProjectInputMenu.querySelector('#projectTitleInput');
 /*************************************************/
+
+/*Date buttons*/
+const todayTodoBtn=sidebarProjectContainer.querySelector('#todayBtn');
+/**/
 let todoArray = []; //contains all arrays.
 let todoProject=[]; //contains all project arrays.
 let workingProject='Default';//default project. Changing projects will change this global variables.
+let todayDate=new Date(); //today's date
+todayDate.setHours(0,0,0,0); //sets the time to 0. 
 
 function initialSetUp(){
     const newProject=sidebarProjectContainer.querySelector(`#defaultProject`);
@@ -81,4 +89,9 @@ addProjectBtn.onclick=()=>{
         projectDOMRefresh(todoProjectObjects(todoArray,workingProject),'todoContainer',todoContent);
         console.log(workingProject);
     });
+}
+
+//Date buttons
+todayTodoBtn.onclick=()=>{
+    projectDOMRefresh(todoDateObjects(todoArray,todayDate),'todoContainer',todoContent); //displays todos for this week.
 }

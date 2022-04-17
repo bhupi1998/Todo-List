@@ -1,5 +1,7 @@
+import {compareAsc,parseISO} from 'date-fns';
 
 function todoConstructor(todoTitle,todoDetails,todoDueDate,project){
+    todoDueDate=parseISO(todoDueDate); //converts the string to a date object
     return {todoTitle, todoDetails, todoDueDate,project};
 }
 
@@ -18,4 +20,13 @@ function todoProjectObjects(todoArray,currentWorkingProject){
     });
     return filteredArray;
 }
-export {todoConstructor,setWorkingProject,todoProjectObjects};
+
+function todoDateObjects(todoArray,dateToFilter){
+    let filteredArray=[];
+    todoArray.forEach(element => {
+        if(compareAsc(element.todoDueDate,dateToFilter)==0)
+            filteredArray.push(element);
+    });
+    return filteredArray;
+}
+export {todoConstructor,setWorkingProject,todoProjectObjects,todoDateObjects};
