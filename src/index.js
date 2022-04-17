@@ -3,7 +3,7 @@ import {todoConstructor,setWorkingProject,todoProjectObjects,todoDateObjects} fr
 import {addTodoDiv,showTaskForm,hideTaskForm,showNewProjectMenu,hideNewProjectMenu,addNewProjectDOM,projectDOMRefresh} from './domManipulation.js';
 import {} from './dateSorting.js'
 
-import {compareAsc,parse,parseISO} from 'date-fns';
+import {compareAsc,parse,parseISO,add} from 'date-fns';
 
 const todoContent=document.querySelector('.todo-content');
 
@@ -33,6 +33,7 @@ const newProjectInputField=newProjectInputMenu.querySelector('#projectTitleInput
 
 /*Date buttons*/
 const todayTodoBtn=sidebarProjectContainer.querySelector('#todayBtn');
+const weekTodoBtn=sidebarProjectContainer.querySelector('#weekBtn');
 /**/
 let todoArray = []; //contains all arrays.
 let todoProject=[]; //contains all project arrays.
@@ -94,4 +95,13 @@ addProjectBtn.onclick=()=>{
 //Date buttons
 todayTodoBtn.onclick=()=>{
     projectDOMRefresh(todoDateObjects(todoArray,todayDate),'todoContainer',todoContent); //displays todos for this week.
+}
+
+weekTodoBtn.onclick=()=>{
+    let thisWeekProjects=[];
+    for(let i=0;i<7;i++){
+        let dateToFilter=add(todayDate,{days:i});
+        thisWeekProjects=thisWeekProjects.concat(todoDateObjects(todoArray,dateToFilter));
+    }
+    projectDOMRefresh(thisWeekProjects,'todoContainer',todoContent);
 }
