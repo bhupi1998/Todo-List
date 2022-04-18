@@ -1,8 +1,9 @@
 import {compareAsc,parseISO} from 'date-fns';
 
-function todoConstructor(todoTitle,todoDetails,todoDueDate,project){
+function todoConstructor(todoTitle,todoDetails,todoDueDate,project,todoId){
     todoDueDate=parseISO(todoDueDate); //converts the string to a date object
-    return {todoTitle, todoDetails, todoDueDate,project};
+    todoId=`taskId-${todoId}`;
+    return {todoTitle, todoDetails, todoDueDate,project,todoId};
 }
 
 //sets the global variable to the current working project

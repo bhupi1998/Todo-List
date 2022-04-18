@@ -40,6 +40,8 @@ let todoProject=[]; //contains all project arrays.
 let workingProject='Default';//default project. Changing projects will change this global variables.
 let todayDate=new Date(); //today's date
 todayDate.setHours(0,0,0,0); //sets the time to 0. 
+let projectIdGlobal=0;//used to assign Ids to projects
+let taskIdGlobal=0;//used to assign Ids to tasks.
 
 function initialSetUp(){
     const newProject=sidebarProjectContainer.querySelector(`#defaultProject`);
@@ -61,8 +63,10 @@ addTaskButton.onclick=() => {
 newTaskForm.onsubmit=(e)=>{
     e.preventDefault(); ///prevents refresh of page
     hideTaskForm(todoContent,addTaskButton);//hides form
-    const task = todoConstructor(newTaskTitle.value,newTaskDetail.value,newTaskDate.value,workingProject);
+    const task = todoConstructor(newTaskTitle.value,newTaskDetail.value,newTaskDate.value,workingProject,taskIdGlobal);
+    taskIdGlobal++;
     addTodoDiv(todoContent,task); //adds a div in the DOM
+    //Need to add an input event listener to title,detail,date fields
     todoArray.push(task);
     newTaskForm.reset(); //resets form
     console.log(task);
@@ -81,7 +85,8 @@ cancelProjectBtn.onclick=()=>{
 }
 addProjectBtn.onclick=()=>{
     hideNewProjectMenu(addNewProjectBtn,newProjectInputMenu);
-    let projectId=addNewProjectDOM(newProjectInputField.value,projectList,0);
+    let projectId=addNewProjectDOM(`project-${projectIdGlobal}`,projectList,newProjectInputField.value);
+    projectIdGlobal++;
     newProjectInputField.value='';
     const newProject=sidebarProjectContainer.querySelector(`#${projectId}`);
     workingProject=setWorkingProject(newProject);//sets current active project

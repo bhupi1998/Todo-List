@@ -5,6 +5,14 @@ function addTodoDiv(parentDiv,todoObject){
     const todoDueDate=document.createElement('p');
 
     todoContainer.setAttribute('class','todoContainer');
+    todoContainer.setAttribute('id',todoObject.todoId);    
+    todoTitle.setAttribute('contenteditable','true');
+    todoTitle.setAttribute('id',`${todoObject.todoId}-title`); 
+    todoDetail.setAttribute('contenteditable','true');
+    todoDetail.setAttribute('id',`${todoObject.todoId}-detail`); 
+    todoDueDate.setAttribute('contenteditable','true'); 
+    todoDueDate.setAttribute('id',`${todoObject.todoId}-dueDate`);    
+
     todoTitle.innerText=todoObject.todoTitle;
     todoDetail.innerText=todoObject.todoDetails;
     todoDueDate.innerText=todoObject.todoDueDate;
@@ -40,13 +48,13 @@ function hideNewProjectMenu(addNewProjectBtn,newProjectInputMenu){
 }
 
 //adds new project button to sidebar
-function addNewProjectDOM(projectName,projectList){
+function addNewProjectDOM(projectId,projectList,projectTitle){
     const newProjectBtn=document.createElement('button');
     newProjectBtn.setAttribute('class','projectBtn');
-    newProjectBtn.setAttribute('id',projectName.replace(' ','-'));
-    newProjectBtn.innerText=projectName;
+    newProjectBtn.setAttribute('id',projectId);
+    newProjectBtn.innerText=projectTitle;
     projectList.append(newProjectBtn);
-    return projectName.replace(' ','-'); //returns the id
+    return projectId; //returns the id
 }
 
 //!This should just take in an array and display it. The sorting should be done elsewhere
