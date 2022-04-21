@@ -1,4 +1,5 @@
 import {compareAsc,parseISO} from 'date-fns';
+import { el } from 'date-fns/locale';
 
 function todoConstructor(todoTitle,todoDetails,todoDueDate,project,todoId){
     todoDueDate=parseISO(todoDueDate); //converts the string to a date object
@@ -30,4 +31,19 @@ function todoDateObjects(todoArray,dateToFilter){
     });
     return filteredArray;
 }
-export {todoConstructor,setWorkingProject,todoProjectObjects,todoDateObjects};
+//Need to reselect each element as the DOM got refreshed.
+function makeTaskEditable(parentDiv,objectArray){
+    objectArray.forEach(function(element){
+        const taskNode=parentDiv.querySelector(`#${element.todoId}`);
+        const taskNodeTitle=taskNode.querySelector(`#${element.todoId}-title`);
+        const taskNodeDetail=taskNode.querySelector(`#${element.todoId}-detail`);
+        const taskNodeDueDate=taskNode.querySelector(`#${element.todoId}-dueDate`);
+        [taskNodeDetail,taskNodeDueDate,taskNodeTitle].forEach(function(element2){
+            element2.addEventListener('input',()=>{
+                 console.log('hello');
+                })
+            });
+        });
+    }
+export {todoConstructor,setWorkingProject,todoProjectObjects,todoDateObjects,makeTaskEditable};
+

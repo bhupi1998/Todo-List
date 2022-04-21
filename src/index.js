@@ -1,5 +1,5 @@
 import './style.css';
-import {todoConstructor,setWorkingProject,todoProjectObjects,todoDateObjects} from './todoFunctions.js';
+import {todoConstructor,setWorkingProject,todoProjectObjects,todoDateObjects,makeTaskEditable} from './todoFunctions.js';
 import {addTodoDiv,showTaskForm,hideTaskForm,showNewProjectMenu,hideNewProjectMenu,addNewProjectDOM,projectDOMRefresh} from './domManipulation.js';
 import {} from './dateSorting.js'
 
@@ -48,7 +48,8 @@ function initialSetUp(){
     workingProject=setWorkingProject(newProject);//sets current active project
     newProject.addEventListener('click',()=>{
         workingProject=setWorkingProject(newProject);//sets current working project
-        projectDOMRefresh(todoProjectObjects(todoArray,workingProject),'todoContainer',todoContent);
+        let displayedObjects=projectDOMRefresh(todoProjectObjects(todoArray,workingProject),'todoContainer',todoContent);
+        makeTaskEditable(todoContent,displayedObjects);
         console.log(workingProject);
     });
 }
@@ -65,8 +66,10 @@ newTaskForm.onsubmit=(e)=>{
     hideTaskForm(todoContent,addTaskButton);//hides form
     const task = todoConstructor(newTaskTitle.value,newTaskDetail.value,newTaskDate.value,workingProject,taskIdGlobal);
     taskIdGlobal++;
-    addTodoDiv(todoContent,task); //adds a div in the DOM
-    //Need to add an input event listener to title,detail,date fields
+    addTodoDiv(todoContent,task); //adds a div in the DOM   
+    let taskArray=[task];
+    makeTaskEditable(todoContent,taskArray);
+
     todoArray.push(task);
     newTaskForm.reset(); //resets form
     console.log(task);
@@ -92,7 +95,8 @@ addProjectBtn.onclick=()=>{
     workingProject=setWorkingProject(newProject);//sets current active project
     newProject.addEventListener('click',()=>{
         workingProject=setWorkingProject(newProject);//sets current working project
-        projectDOMRefresh(todoProjectObjects(todoArray,workingProject),'todoContainer',todoContent);
+        let displayedObjects=projectDOMRefresh(todoProjectObjects(todoArray,workingProject),'todoContainer',todoContent);
+        makeTaskEditable(todoContent,displayedObjects);
         console.log(workingProject);
     });
 }
@@ -108,5 +112,6 @@ weekTodoBtn.onclick=()=>{
         let dateToFilter=add(todayDate,{days:i});
         thisWeekProjects=thisWeekProjects.concat(todoDateObjects(todoArray,dateToFilter));
     }
-    projectDOMRefresh(thisWeekProjects,'todoContainer',todoContent);
+    let displayedObjects=projectDOMRefresh(thisWeekProjects,'todoContainer',todoContent);
+    makeTaskEditable(todoContent,displayedObjects);
 }

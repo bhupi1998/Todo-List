@@ -3,6 +3,7 @@
 import {add} from 'date-fns';
 
 //need a function that returns an array of objects that match a given date
+//no need to use this.
 function taskDateFilter(taskArray,dateToCheck){
     let matchedArray=[];
     taskArray.foreach(function(taskObject){

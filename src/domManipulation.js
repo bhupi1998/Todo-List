@@ -67,6 +67,7 @@ function projectDOMRefresh(projectArray,elementsToRemove,parentDiv){
     projectArray.forEach(function(todoObject){
             addTodoDiv(parentDiv,todoObject);
     })
+    return projectArray;
 }
 //From: https://stackoverflow.com/questions/4777077/removing-elements-by-class-name
 function removeElementsByClass(className){
