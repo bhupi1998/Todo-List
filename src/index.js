@@ -35,7 +35,6 @@ const newProjectInputField=newProjectInputMenu.querySelector('#projectTitleInput
 const todayTodoBtn=sidebarProjectContainer.querySelector('#todayBtn');
 const weekTodoBtn=sidebarProjectContainer.querySelector('#weekBtn');
 /**/
-let todoArray = []; //contains all arrays.
 let todoProject=[]; //contains all project arrays.
 let workingProject='Default';//default project. Changing projects will change this global variables.
 let todayDate=new Date(); //today's date

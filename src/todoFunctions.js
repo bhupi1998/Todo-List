@@ -32,6 +32,7 @@ function todoDateObjects(todoArray,dateToFilter){
     return filteredArray;
 }
 //Need to reselect each element as the DOM got refreshed.
+//displayed object array is passed.
 function makeTaskEditable(parentDiv,objectArray){
     objectArray.forEach(function(element){
         const taskNode=parentDiv.querySelector(`#${element.todoId}`);
@@ -40,7 +41,22 @@ function makeTaskEditable(parentDiv,objectArray){
         const taskNodeDueDate=taskNode.querySelector(`#${element.todoId}-dueDate`);
         [taskNodeDetail,taskNodeDueDate,taskNodeTitle].forEach(function(element2){
             element2.addEventListener('input',()=>{
-                 console.log('hello');
+                let elementId=element2.id;
+                let elementArrayPosition=(elementId.match('[0-9]+'))[0]; //.match returns an array
+                let elementTaskInputType=(elementId.match('-[t][a-z]+|-[d][a-zA-Z]+'))[0];
+                elementTaskInputType=elementTaskInputType.slice(1,elementTaskInputType.length);
+                switch(elementTaskInputType){
+                    case 'title':
+                        todoArray[elementArrayPosition].todoTitle=element2.textContent;
+                        break;
+                    case 'detail':
+                        todoArray[elementArrayPosition].todoDetails=element2.textContent;
+                        break;
+                    case 'dueDate':
+                        todoArray[elementArrayPosition].todoDueDate=element2.textContent;
+                        break;
+                    default:return;
+                }
                 })
             });
         });
