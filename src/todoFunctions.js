@@ -17,6 +17,7 @@ function setWorkingProject(currentProject){
 function todoProjectObjects(todoArray,currentWorkingProject){
     let filteredArray=[];
     todoArray.forEach(element => {
+        if(element==null)return;
         if(element.project == currentWorkingProject)
             filteredArray.push(element);
     });
@@ -26,6 +27,7 @@ function todoProjectObjects(todoArray,currentWorkingProject){
 function todoDateObjects(todoArray,dateToFilter){
     let filteredArray=[];
     todoArray.forEach(element => {
+        if(element==null)return;
         if(compareAsc(element.todoDueDate,dateToFilter)==0)
             filteredArray.push(element);
     });
@@ -39,6 +41,7 @@ function makeTaskEditable(parentDiv,objectArray){
         const taskNodeTitle=taskNode.querySelector(`#${element.todoId}-title`);
         const taskNodeDetail=taskNode.querySelector(`#${element.todoId}-detail`);
         const taskNodeDueDate=taskNode.querySelector(`#${element.todoId}-dueDate`);
+        const taskNodeDeleteBtn=taskNode.querySelector(`#${element.todoId}-deleteBtn`);
         [taskNodeDetail,taskNodeDueDate,taskNodeTitle].forEach(function(element2){
             element2.addEventListener('input',()=>{
                 let elementId=element2.id;
@@ -58,6 +61,12 @@ function makeTaskEditable(parentDiv,objectArray){
                     default:return;
                 }
                 })
+            });
+            taskNodeDeleteBtn.addEventListener('click',function(){
+                let elementArrayPosition=((taskNodeDeleteBtn.id).match('[0-9]+'))[0]; //.match returns an array
+                todoArray[elementArrayPosition]=null;//clears the array position
+                const elementToRemove=document.getElementById(`taskId-${elementArrayPosition}`);
+                elementToRemove.remove();//removes element from DOM
             });
         });
     }

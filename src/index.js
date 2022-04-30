@@ -96,7 +96,6 @@ addProjectBtn.onclick=()=>{
         workingProject=setWorkingProject(newProject);//sets current working project
         let displayedObjects=projectDOMRefresh(todoProjectObjects(todoArray,workingProject),'todoContainer',todoContent);
         makeTaskEditable(todoContent,displayedObjects);
-        console.log(workingProject);
     });
 }
 

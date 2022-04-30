@@ -3,6 +3,7 @@ function addTodoDiv(parentDiv,todoObject){
     const todoTitle=document.createElement('h1');
     const todoDetail=document.createElement('p');
     const todoDueDate=document.createElement('p');
+    const deleteBtn=document.createElement('button');
 
     todoContainer.setAttribute('class','todoContainer');
     todoContainer.setAttribute('id',todoObject.todoId);    
@@ -11,13 +12,16 @@ function addTodoDiv(parentDiv,todoObject){
     todoDetail.setAttribute('contenteditable','true');
     todoDetail.setAttribute('id',`${todoObject.todoId}-detail`); 
     todoDueDate.setAttribute('contenteditable','true'); 
-    todoDueDate.setAttribute('id',`${todoObject.todoId}-dueDate`);    
+    todoDueDate.setAttribute('id',`${todoObject.todoId}-dueDate`);  
+    deleteBtn.setAttribute('id',`${todoObject.todoId}-deleteBtn`);  
+
 
     todoTitle.innerText=todoObject.todoTitle;
     todoDetail.innerText=todoObject.todoDetails;
     todoDueDate.innerText=todoObject.todoDueDate;
+    deleteBtn.innerText='Delete';
 
-    todoContainer.append(todoTitle,todoDetail,todoDueDate);
+    todoContainer.append(todoTitle,todoDetail,todoDueDate,deleteBtn);
     parentDiv.append(todoContainer);
 }
 
