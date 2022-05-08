@@ -1,5 +1,5 @@
 import './style.css';
-import {todoConstructor,setWorkingProject,todoProjectObjects,todoDateObjects,makeTaskEditable} from './todoFunctions.js';
+import {todoConstructor,setWorkingProject,todoProjectObjects,todoDateObjects,makeTaskEditable,saveToLocalStorage,projectConstructor,restoreLocalStorage} from './todoFunctions.js';
 import {addTodoDiv,showTaskForm,hideTaskForm,showNewProjectMenu,hideNewProjectMenu,addNewProjectDOM,projectDOMRefresh} from './domManipulation.js';
 import {} from './dateSorting.js'
 
@@ -35,12 +35,10 @@ const newProjectInputField=newProjectInputMenu.querySelector('#projectTitleInput
 const todayTodoBtn=sidebarProjectContainer.querySelector('#todayBtn');
 const weekTodoBtn=sidebarProjectContainer.querySelector('#weekBtn');
 /**/
-let todoProject=[]; //contains all project arrays.
 let workingProject='Default';//default project. Changing projects will change this global variables.
 let todayDate=new Date(); //today's date
 todayDate.setHours(0,0,0,0); //sets the time to 0. 
-let projectIdGlobal=0;//used to assign Ids to projects
-let taskIdGlobal=0;//used to assign Ids to tasks.
+
 
 function initialSetUp(){
     const newProject=sidebarProjectContainer.querySelector(`#defaultProject`);
@@ -49,7 +47,26 @@ function initialSetUp(){
         workingProject=setWorkingProject(newProject);//sets current working project
         let displayedObjects=projectDOMRefresh(todoProjectObjects(todoArray,workingProject),'todoContainer',todoContent);
         makeTaskEditable(todoContent,displayedObjects);
-        console.log(workingProject);
+    });
+    restoreLocalStorage(); 
+
+    if(taskIdGlobal==null)
+        taskIdGlobal=0;
+    if(projectIdGlobal==null)
+        projectIdGlobal=0;
+    //show tasks for default project
+    let displayedObjects=projectDOMRefresh(todoProjectObjects(todoArray,workingProject),'todoContainer',todoContent);
+    makeTaskEditable(todoContent,displayedObjects);
+
+    //show all projects
+    todoProject.forEach(function(element,index){
+        let projectId=addNewProjectDOM(element.projectId,projectList,element.projectName);
+        const newProject=sidebarProjectContainer.querySelector(`#${projectId}`);
+        newProject.addEventListener('click',()=>{
+            workingProject=setWorkingProject(newProject);//sets current working project
+            let displayedObjects=projectDOMRefresh(todoProjectObjects(todoArray,workingProject),'todoContainer',todoContent);
+            makeTaskEditable(todoContent,displayedObjects);
+        });
     });
 }
 
@@ -65,13 +82,15 @@ newTaskForm.onsubmit=(e)=>{
     hideTaskForm(todoContent,addTaskButton);//hides form
     const task = todoConstructor(newTaskTitle.value,newTaskDetail.value,newTaskDate.value,workingProject,taskIdGlobal);
     taskIdGlobal++;
+
     addTodoDiv(todoContent,task); //adds a div in the DOM   
     let taskArray=[task];
     makeTaskEditable(todoContent,taskArray);
 
     todoArray.push(task);
+    saveToLocalStorage();
     newTaskForm.reset(); //resets form
-    console.log(task);
+
 }
 /***********************************************************/
 
@@ -88,6 +107,7 @@ cancelProjectBtn.onclick=()=>{
 addProjectBtn.onclick=()=>{
     hideNewProjectMenu(addNewProjectBtn,newProjectInputMenu);
     let projectId=addNewProjectDOM(`project-${projectIdGlobal}`,projectList,newProjectInputField.value);
+    todoProject.push(projectConstructor(projectId,newProjectInputField.value));
     projectIdGlobal++;
     newProjectInputField.value='';
     const newProject=sidebarProjectContainer.querySelector(`#${projectId}`);
@@ -97,6 +117,7 @@ addProjectBtn.onclick=()=>{
         let displayedObjects=projectDOMRefresh(todoProjectObjects(todoArray,workingProject),'todoContainer',todoContent);
         makeTaskEditable(todoContent,displayedObjects);
     });
+    saveToLocalStorage();
 }
 
 //Date buttons

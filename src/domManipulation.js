@@ -1,9 +1,16 @@
+import formatISO from "date-fns/formatISO";
+import format from "date-fns/format";
+import parseISO from "date-fns/parseISO";
+import parseJSON from "date-fns/parseJSON";
+
 function addTodoDiv(parentDiv,todoObject){
     const todoContainer=document.createElement('div');
     const todoTitle=document.createElement('h1');
     const todoDetail=document.createElement('p');
-    const todoDueDate=document.createElement('p');
+    const todoDueDate=document.createElement('input');
     const deleteBtn=document.createElement('button');
+
+    const todoDueDateParsed=parseJSON(todoObject.todoDueDate);
 
     todoContainer.setAttribute('class','todoContainer');
     todoContainer.setAttribute('id',todoObject.todoId);    
@@ -12,13 +19,13 @@ function addTodoDiv(parentDiv,todoObject){
     todoDetail.setAttribute('contenteditable','true');
     todoDetail.setAttribute('id',`${todoObject.todoId}-detail`); 
     todoDueDate.setAttribute('contenteditable','true'); 
+    todoDueDate.setAttribute('type','date');
+    todoDueDate.setAttribute('value',format(todoDueDateParsed,'y-MM-d'));  
     todoDueDate.setAttribute('id',`${todoObject.todoId}-dueDate`);  
     deleteBtn.setAttribute('id',`${todoObject.todoId}-deleteBtn`);  
 
-
     todoTitle.innerText=todoObject.todoTitle;
     todoDetail.innerText=todoObject.todoDetails;
-    todoDueDate.innerText=todoObject.todoDueDate;
     deleteBtn.innerText='Delete';
 
     todoContainer.append(todoTitle,todoDetail,todoDueDate,deleteBtn);
@@ -61,7 +68,6 @@ function addNewProjectDOM(projectId,projectList,projectTitle){
     return projectId; //returns the id
 }
 
-//!This should just take in an array and display it. The sorting should be done elsewhere
 //updates DOM with given object array.
 //Input: Element Arrays and the class name of the elements its replacing
 //      which is todoContainer in this case

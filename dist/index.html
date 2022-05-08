@@ -5,7 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo List</title>
-    <script>let todoArray = []; //contains all arrays.</script>
+    <script>let todoArray = []; //contains all arrays.
+            let taskIdGlobal=0;//used to assign Ids to tasks.
+            let todoProject=[]; //contains all project arrays.
+            let projectIdGlobal=0;//used to assign Ids to projects
+    </script>
     <script src="main.js" defer></script>
 </head>
 <body>
@@ -39,7 +43,7 @@
             <textarea name="newTaskForm-taskDetail" id="newTaskForm-taskDetail" cols="30" rows="10"></textarea>
 
             <label for="newTaskForm-taskDueDate">Do by:</label>
-            <input type="date" name="newTaskForm-taskDueDate" id="newTaskForm-taskDueDate" >
+            <input type="date" name="newTaskForm-taskDueDate" id="newTaskForm-taskDueDate" required>
 
             <button type='submit' class="newTaskForm-addTaskBtn formBtn">Add</button>
         </form>
