@@ -1,4 +1,4 @@
-import {compareAsc,parseISO} from 'date-fns';
+import {compareAsc,parseISO, parseJSON} from 'date-fns';
 import { el } from 'date-fns/locale';
 
 function todoConstructor(todoTitle,todoDetails,todoDueDate,project,todoId){
@@ -12,6 +12,12 @@ function projectConstructor(projectId,projectName){
 }
 //sets the global variable to the current working project
 function setWorkingProject(currentProject){
+    const previousProject=document.querySelector(`#${workingProject}`);
+    const allActiveProjects=document.querySelectorAll('.activeProject');
+    allActiveProjects.forEach(function(element){
+        element.classList.remove('activeProject');
+    });
+    currentProject.classList.add('activeProject');
     return currentProject.id;
 }
 
@@ -31,7 +37,7 @@ function todoDateObjects(todoArray,dateToFilter){
     let filteredArray=[];
     todoArray.forEach(element => {
         if(element==null)return;
-        let DueDate=parseISO(element.todoDueDate);
+        let DueDate=parseJSON(element.todoDueDate);
         if(compareAsc(DueDate,dateToFilter)==0)
             filteredArray.push(element);
     });
@@ -43,7 +49,6 @@ function saveToLocalStorage(){
     localStorage.setItem('projectId',projectIdGlobal);
     //everytime there is a change, save it to local storage
     todoArray.forEach(function(todoObject,index){
-        todoObject.todoDueDate=JSON.stringify(todoObject.todoDueDate); //convert date object to string.
         localStorage.setItem(`todo-${index}`,JSON.stringify(todoObject));
     });
     todoProject.forEach(function(project,index){
@@ -57,7 +62,6 @@ function restoreLocalStorage(){
     for(let i=0;i<taskIdGlobal;i++){
         let objectToParse=localStorage.getItem(`todo-${i}`);
         objectToParse=JSON.parse(objectToParse);
-        //objectToParse.todoDueDate=parseISO(objectToParse.todoDueDate); //need to convert date back into date object
         todoArray.push(objectToParse);
     }
     for(let l=0;l<projectIdGlobal;l++){
@@ -88,7 +92,8 @@ function makeTaskEditable(parentDiv,objectArray){
                         todoArray[elementArrayPosition].todoDetails=element2.textContent;
                         break;
                     case 'dueDate':
-                        todoArray[elementArrayPosition].todoDueDate=element2.textContent;
+                        let todoDueDate=element2.value;
+                        todoArray[elementArrayPosition].todoDueDate=JSON.stringify(parseISO(todoDueDate)); //converts the string to a date object
                         break;
                     default:return;
                 }

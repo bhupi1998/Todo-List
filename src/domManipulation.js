@@ -10,7 +10,13 @@ function addTodoDiv(parentDiv,todoObject){
     const todoDueDate=document.createElement('input');
     const deleteBtn=document.createElement('button');
 
-    const todoDueDateParsed=parseJSON(todoObject.todoDueDate);
+    if(todoObject.todoDueDate=='Invalid Date'||todoObject.todoDueDate==''){
+        let date=new Date();
+        date.setHours(0,0,0,0); //sets the time to 0.
+        todoObject.todoDueDate=date; 
+    }
+
+    const todoDueDateParsed=parseJSON(todoObject.todoDueDate); //parse the json date string into date instance
 
     todoContainer.setAttribute('class','todoContainer');
     todoContainer.setAttribute('id',todoObject.todoId);    
@@ -20,13 +26,13 @@ function addTodoDiv(parentDiv,todoObject){
     todoDetail.setAttribute('id',`${todoObject.todoId}-detail`); 
     todoDueDate.setAttribute('contenteditable','true'); 
     todoDueDate.setAttribute('type','date');
-    todoDueDate.setAttribute('value',format(todoDueDateParsed,'y-MM-d'));  
+    todoDueDate.setAttribute('value',format(todoDueDateParsed,'y-MM-dd'));  
     todoDueDate.setAttribute('id',`${todoObject.todoId}-dueDate`);  
     deleteBtn.setAttribute('id',`${todoObject.todoId}-deleteBtn`);  
 
     todoTitle.innerText=todoObject.todoTitle;
     todoDetail.innerText=todoObject.todoDetails;
-    deleteBtn.innerText='Delete';
+    deleteBtn.innerText='Done';
 
     todoContainer.append(todoTitle,todoDetail,todoDueDate,deleteBtn);
     parentDiv.append(todoContainer);
