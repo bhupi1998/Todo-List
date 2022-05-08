@@ -9,6 +9,7 @@
             let taskIdGlobal=0;//used to assign Ids to tasks.
             let todoProject=[]; //contains all project arrays.
             let projectIdGlobal=0;//used to assign Ids to projects
+            let workingProject='defaultProject';//default project. Changing projects will change this global variables.
     </script>
     <script src="main.js" defer></script>
 </head>
@@ -23,15 +24,15 @@
                 <button class="dateBtn" id="todayBtn">Today</button>
                 <button class="dateBtn" id="weekBtn">This Week</button>
             </ul>
-            <ul class="projectList">
-                <button class="projectBtn" id="defaultProject">Default Project</button>           
-            </ul>
             <button id="addNewProjectBtn">Add New Project</button>
             <div class="newProjectInputMenu">
-                <input type="text" name="projectTitleInput" id="projectTitleInput">
+                <input type="text" name="projectTitleInput" id="projectTitleInput" maxlength="20">
                 <button id="projectTitleInput-addBtn">Add</button>
                 <button id="projectTitleInput-cancelBtn">Cancel</button>
             </div>
+            <ul class="projectList">
+                <button class="projectBtn" id="defaultProject">Default Project</button>           
+            </ul>
         </div>
     </div>
     <div class="todo-content">
@@ -47,7 +48,13 @@
 
             <button type='submit' class="newTaskForm-addTaskBtn formBtn">Add</button>
         </form>
-        <button class="addTask">Add Task</button>
+        
+        <div class="addTaskArea">
+            <button class="addTask">Add Task</button>
+        </div>
+        <div class="todo-content-container">
+            
+        </div>
     </div>
     <div class="footer">
         <p>Copyright © 2022 bhupi1998
