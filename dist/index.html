@@ -27,8 +27,10 @@
             <button id="addNewProjectBtn">Add New Project</button>
             <div class="newProjectInputMenu">
                 <input type="text" name="projectTitleInput" id="projectTitleInput" maxlength="20">
-                <button id="projectTitleInput-addBtn">Add</button>
-                <button id="projectTitleInput-cancelBtn">Cancel</button>
+                <div class="newProjectBtnContainer">
+                    <button id="projectTitleInput-addBtn">Add</button>
+                    <button id="projectTitleInput-cancelBtn">X</button>
+                </div>
             </div>
             <ul class="projectList">
                 <button class="projectBtn" id="defaultProject">Default Project</button>           
@@ -37,23 +39,23 @@
     </div>
     <div class="todo-content">
         <form action='' id="newTaskForm">
-            <label for="newTaskForm-taskTitle">Title:</label>
-            <input type="text" name="newTaskForm-taskTitle" id="newTaskForm-taskTitle" required>
-
-            <label for="newTaskForm-taskDetail">Details:</label>
-            <textarea name="newTaskForm-taskDetail" id="newTaskForm-taskDetail" cols="30" rows="10"></textarea>
-
-            <label for="newTaskForm-taskDueDate">Do by:</label>
-            <input type="date" name="newTaskForm-taskDueDate" id="newTaskForm-taskDueDate" required>
-
-            <button type='submit' class="newTaskForm-addTaskBtn formBtn">Add</button>
+            <div class="formSubContainer">
+                <label for="newTaskForm-taskTitle">Title:</label>
+                <input type="text" name="newTaskForm-taskTitle" id="newTaskForm-taskTitle" required>
+                <label for="newTaskForm-taskDueDate">Do by:</label>
+                <input type="date" name="newTaskForm-taskDueDate" id="newTaskForm-taskDueDate" required>
+                <label for="newTaskForm-taskDetail">Details:</label>
+                <textarea name="newTaskForm-taskDetail" id="newTaskForm-taskDetail" cols="30" rows="10" maxlength="300"></textarea>
+                <button type='submit' class="newTaskForm-addTaskBtn formBtn">Add</button>
+            </div>
+            <button id="newTaskCancel">X</button>
         </form>
         
         <div class="addTaskArea">
             <button class="addTask">Add Task</button>
         </div>
         <div class="todo-content-container">
-            
+
         </div>
     </div>
     <div class="footer">

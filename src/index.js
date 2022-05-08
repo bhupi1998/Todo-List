@@ -11,6 +11,7 @@ const todoContentContainer=document.querySelector('.todo-content-container');
 //form********************************************
 const addTaskButton=todoContent.querySelector('.addTask');
 const newTaskForm=todoContent.querySelector('#newTaskForm');
+const newTaskCancelBtn=todoContent.querySelector('#newTaskCancel');
 //Form inputs
 const newTaskTitle=newTaskForm.querySelector('#newTaskForm-taskTitle');
 const newTaskDetail=newTaskForm.querySelector('#newTaskForm-taskDetail');
@@ -73,13 +74,13 @@ function initialSetUp(){
 initialSetUp();
 
 addTaskButton.onclick=() => {
-    showTaskForm(todoContentContainer,addTaskButton);
+    showTaskForm(todoContent,addTaskButton);
 };
 /*New task form event listeners*****************************/
 
 newTaskForm.onsubmit=(e)=>{
     e.preventDefault(); ///prevents refresh of page
-    hideTaskForm(todoContentContainer,addTaskButton);//hides form
+    hideTaskForm(todoContent,addTaskButton);//hides form
     const task = todoConstructor(newTaskTitle.value,newTaskDetail.value,newTaskDate.value,workingProject,taskIdGlobal);
     taskIdGlobal++;
 
@@ -91,6 +92,12 @@ newTaskForm.onsubmit=(e)=>{
     saveToLocalStorage();
     newTaskForm.reset(); //resets form
 
+}
+
+newTaskCancelBtn.onclick=(e)=>{
+    e.preventDefault(); ///prevents refresh of page
+    hideTaskForm(todoContent,addTaskButton);//hides form
+    newTaskForm.reset(); //resets form
 }
 /***********************************************************/
 

@@ -28,7 +28,9 @@ function addTodoDiv(parentDiv,todoObject){
     todoDueDate.setAttribute('type','date');
     todoDueDate.setAttribute('value',format(todoDueDateParsed,'y-MM-dd'));  
     todoDueDate.setAttribute('id',`${todoObject.todoId}-dueDate`);  
+
     deleteBtn.setAttribute('id',`${todoObject.todoId}-deleteBtn`);  
+    deleteBtn.setAttribute('class',`taskDeleteBtn`);  
 
     todoTitle.innerText=todoObject.todoTitle;
     todoDetail.innerText=todoObject.todoDetails;
